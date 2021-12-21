@@ -171,7 +171,9 @@ if [ -n "$CRITICAL_ANALYZER_POLICY" ]; then
     -v "${CRITICAL_ANALYZER_POLICY}" ../etc/broker.xml
 fi
 
-if [ -e /var/lib/artemis/etc/jolokia-access.xml ]; then
+if [ -f "$OVERRIDE_PATH/jolokia-access.xml" ]; then
+  cp "$OVERRIDE_PATH/jolokia-access.xml" "$CONFIG_PATH/jolokia-access.xml"
+elif [ -e "$CONFIG_PATH/jolokia-access.xml" ]; then
   xmlstarlet ed --inplace -u '/restrict/cors/allow-origin' -v "${JOLOKIA_ALLOW_ORIGIN:-*}" /var/lib/artemis/etc/jolokia-access.xml
 fi
 
