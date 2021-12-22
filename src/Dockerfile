@@ -28,7 +28,7 @@ RUN apt-get -qq -o=Dpkg::Use-Pty=0 update && \
     ivy && \
   rm -rf /var/lib/apt/lists/*
 
-# Make sure pipes are considered to detemine success, see: https://github.com/hadolint/hadolint/wiki/DL4006
+# Make sure pipes are considered to determine success, see: https://github.com/hadolint/hadolint/wiki/DL4006
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Uncompress and validate
