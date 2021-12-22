@@ -1,4 +1,4 @@
-![latest 2.20.0](https://img.shields.io/badge/latest-2.20.0-blue.svg?style=flat) ![License MIT](https://img.shields.io/badge/license-APACHE-blue.svg) [![](https://img.shields.io/docker/stars/subhamagr/activemq-artemis.svg)](https://hub.docker.com/r/subhamagr/activemq-artemis 'DockerHub') [![](https://img.shields.io/docker/pulls/vromero/activemq-artemis.svg)](https://hub.docker.com/r/subhamagr/activemq-artemis 'DockerHub')
+![latest 2.20.0](https://img.shields.io/badge/latest-2.20.0-blue.svg?style=flat) ![License MIT](https://img.shields.io/badge/license-APACHE-blue.svg) [![](https://img.shields.io/docker/stars/subhamagr/activemq-artemis.svg)](https://hub.docker.com/r/subhamagr/activemq-artemis 'DockerHub') [![](https://img.shields.io/docker/pulls/subhamagr/activemq-artemis.svg)](https://hub.docker.com/r/subhamagr/activemq-artemis 'DockerHub')
 
 ## ABOUT THIS PROJECT
 
