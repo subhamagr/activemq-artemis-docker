@@ -4,7 +4,7 @@
 ## Build Image                                           #
 ##########################################################
 ARG BASE_IMAGE
-FROM openjdk:8u171-jdk-stretch as builder
+FROM openjdk:8u312-jdk-slim-buster as builder
 LABEL maintainer="Victor Romero <victor.romero@gmail.com>"
 
 ARG ACTIVEMQ_ARTEMIS_VERSION
@@ -18,12 +18,14 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN apt-get -qq -o=Dpkg::Use-Pty=0 update && \
   apt-get -qq -o=Dpkg::Use-Pty=0 install -y --no-install-recommends \
-    libaio1=0.3.110-3 \
-    xmlstarlet=1.6.1-2 \
-    jq=1.5+dfsg-1.3 \
-    ca-certificates=20161130+nmu1+deb9u1 \
-    wget=1.18-5+deb9u2 \
-    ivy=2.4.0-3 && \
+    libaio1 \
+    xmlstarlet \
+    jq \
+    ca-certificates \
+    wget \
+    gpg \
+    gpg-agent \
+    ivy && \
   rm -rf /var/lib/apt/lists/*
 
 # Make sure pipes are considered to detemine success, see: https://github.com/hadolint/hadolint/wiki/DL4006
@@ -96,7 +98,7 @@ RUN echo "formatter.JSON=org.jboss.logmanager.formatters.JsonFormatter" | tee -a
 RUN sed -i "s/-Xbootclasspath\/a:\"\(.*\)\"/-Xbootclasspath\/a:\"\1:\/opt\/apache-artemis\/lib\/javax.json-1.1.4.jar\"/g" /var/lib/artemis/bin/artemis
 
 # --java-options doesn't seem to work across the board on all versions adding them manually
-RUN sed -i "s/JAVA_ARGS=\"/JAVA_ARGS=\"-Djava.net.preferIPv4Addresses=true -Djava.net.preferIPv4Stack=true -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=2 /g" ../etc/artemis.profile
+RUN sed -i "s/JAVA_ARGS=\"/JAVA_ARGS=\"-Djava.net.preferIPv4Addresses=true -Djava.net.preferIPv4Stack=true -XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport -XX:MaxRAMFraction=2 /g" ../etc/artemis.profile
 
 # Ports are only exposed with an explicit argument, there is no need to binding
 # the web console to localhost
@@ -140,12 +142,12 @@ RUN groupadd -g 1000 -r artemis && useradd -r -u 1000 -g artemis artemis
 
 RUN apt-get -qq -o=Dpkg::Use-Pty=0 update && \
   apt-get -qq -o=Dpkg::Use-Pty=0 install -y --no-install-recommends \
-    libaio1=0.3.110-3 \
-    xmlstarlet=1.6.1-2 \
-    jq=1.5+dfsg-1.3 \
-    gettext-base=0.19.8.1-2+deb9u1 \
-    dumb-init=1.2.0-1 \
-    procps=2:3.3.12-3+deb9u1 && \
+    libaio1 \
+    xmlstarlet \
+    jq \
+    dumb-init \
+    procps \
+    gettext-base && \
   rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder "/opt/apache-artemis-${ACTIVEMQ_ARTEMIS_VERSION}" "/opt/apache-artemis-${ACTIVEMQ_ARTEMIS_VERSION}"
