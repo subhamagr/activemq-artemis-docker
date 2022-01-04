@@ -4,7 +4,7 @@
 ## Build Image                                           #
 ##########################################################
 ARG BASE_IMAGE
-FROM openjdk:8u312-jdk-slim-buster as builder
+FROM openjdk:18-jdk-slim-buster as builder
 LABEL maintainer="Victor Romero <victor.romero@gmail.com>"
 
 ARG ACTIVEMQ_ARTEMIS_VERSION
@@ -98,7 +98,7 @@ RUN echo "formatter.JSON=org.jboss.logmanager.formatters.JsonFormatter" | tee -a
 RUN sed -i "s/-Xbootclasspath\/a:\"\(.*\)\"/-Xbootclasspath\/a:\"\1:\/opt\/apache-artemis\/lib\/javax.json-1.1.4.jar\"/g" /var/lib/artemis/bin/artemis
 
 # --java-options doesn't seem to work across the board on all versions adding them manually
-RUN sed -i "s/JAVA_ARGS=\"/JAVA_ARGS=\"-Djava.net.preferIPv4Addresses=true -Djava.net.preferIPv4Stack=true -XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport -XX:MaxRAMFraction=2 /g" ../etc/artemis.profile
+RUN sed -i "s/JAVA_ARGS=\"/JAVA_ARGS=\"-Djava.net.preferIPv4Addresses=true -Djava.net.preferIPv4Stack=true -XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport /g" ../etc/artemis.profile
 
 # Ports are only exposed with an explicit argument, there is no need to binding
 # the web console to localhost

@@ -21,7 +21,15 @@ getFullTagNameFromTag=$(call lookupRepositoryFromTag,$1):$(call getVersionFromTa
 build_%:
 	@cd src && \
 	echo Building version $* for platform $$PLATFORM && \
-	docker build --platform $$PLATFORM --build-arg ACTIVEMQ_ARTEMIS_VERSION=$(call getVersionFromTag,$*) --build-arg BASE_IMAGE=$(call lookupBaseImageFromTag,$*) $(BUILD_ARGS) -t $(call getFullTagNameFromTag,$*) -f $(call lookupDockerfileFromTag,$*) .
+	docker build \
+	    --no-cache \
+	    --platform $$PLATFORM \
+	    --build-arg ACTIVEMQ_ARTEMIS_VERSION=$(call getVersionFromTag,$*) \
+	    --build-arg BASE_IMAGE=$(call lookupBaseImageFromTag,$*) \
+	    --tag $(call getFullTagNameFromTag,$*) \
+	    --file $(call lookupDockerfileFromTag,$*) \
+	    $(BUILD_ARGS) \
+	    .
 
 tag_%:
 	@for alias in $(call lookupAliasesFromTag,$*); do docker tag $(call getFullTagNameFromTag,$*) $$alias ; done

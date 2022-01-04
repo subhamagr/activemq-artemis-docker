@@ -1,6 +1,5 @@
 Repository,Tag,Base Image,Aliases,Dockerfile
-subhamagr/activemq-artemis,2.16.0,arm64v8/openjdk:8u312-jre-slim-buster,subhamagr/activemq-artemis:2.16-latest,Dockerfile
-subhamagr/activemq-artemis,2.17.0,arm64v8/openjdk:8u312-jre-slim-buster,subhamagr/activemq-artemis:2.17-latest,Dockerfile
-subhamagr/activemq-artemis,2.18.0,arm64v8/openjdk:8u312-jre-slim-buster,subhamagr/activemq-artemis:2.18-latest,Dockerfile
-subhamagr/activemq-artemis,2.19.0,arm64v8/openjdk:8u312-jre-slim-buster,subhamagr/activemq-artemis:2.19-latest,Dockerfile
-subhamagr/activemq-artemis,2.20.0,arm64v8/openjdk:8u312-jre-slim-buster,subhamagr/activemq-artemis:latest subhamagr/activemq-artemis:2.20-latest subhamagr/activemq-artemis:2-latest,Dockerfile
+subhamagr/activemq-artemis,2.16.0,openjdk:8u312-jre-slim-buster,,Dockerfile
+subhamagr/activemq-artemis,2.17.0,openjdk:18-jdk-slim-buster,,Dockerfile
+subhamagr/activemq-artemis,2.18.0,openjdk:18-jdk-slim-buster,,Dockerfile
+subhamagr/activemq-artemis,2.19.0,openjdk:18-jdk-slim,subhamagr/activemq-artemis:latest,Dockerfile
